@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    
+    [SerializeField] Player player = null;
+    [SerializeField] Vector3 currentVelocity;
+    [SerializeField] float smoothTime = 0.1f;
+
+    public Player Player {
+        get => player;
+        set => player = value;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+        transform.position = Vector3.SmoothDamp(transform.position, Player.transform.position, ref currentVelocity, smoothTime);
     }
 }

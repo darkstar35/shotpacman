@@ -32,6 +32,7 @@ public class DotHelper : MonoBehaviour {
     }
 
     void Update() {
-        LocalScale = Mathf.SmoothDamp(LocalScale, TargetScale, ref currentVelocity, smoothTime);
+        
+      //  LocalScale = Mathf.SmoothDamp(LocalScale, TargetScale, ref currentVelocity, smoothTime);
     }
 }

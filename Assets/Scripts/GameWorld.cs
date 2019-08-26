@@ -24,8 +24,6 @@ public class GameWorld : MonoBehaviour {
         LocalScale = Mathf.SmoothDamp(LocalScale, TargetScale, ref currentVelocity, smoothTime);
         backgroundPatternImage.RepeatRatio = unitRepeatRatio * LocalScale;
 
-        if (player.RadiusXWorld / endOfWorld.position.x > 0.5f) {
-            TargetScale /= 2;
-        }
+     
     }
 }

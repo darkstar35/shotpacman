@@ -56,12 +56,12 @@ public class AsteroidPlayer : MonoBehaviour {
 		}
 
 		// bounce the player off the bounds
-		if(Mathf.Abs(transform.position.x) > 10f){
+/* 		if(Mathf.Abs(transform.position.x) > 10f)
 			vel.x = -vel.x;
-		}
-		if(Mathf.Abs(transform.position.y) > 10f){
+		
+		if(Mathf.Abs(transform.position.y) > 10f)
 			vel.y = -vel.y;
-		}
+*/		
 
 		if(Input.GetKeyDown(KeyCode.G)){
 			sfRenderer.enabled = !sfRenderer.enabled;

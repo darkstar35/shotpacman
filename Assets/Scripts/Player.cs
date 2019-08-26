@@ -1,41 +1,100 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
+using System;
+using Random=UnityEngine.Random;
 
 public class Player : MonoBehaviour {
-    [SerializeField] float targetScale = 1.0f;
-    [SerializeField] float currentVelocity = 0.0f;
-    [SerializeField] float smoothTime = 0.01f;
-    [SerializeField] GameObject dotSplashPrefab = null;
-    [SerializeField] RectTransform playerRadius = null;
-    [SerializeField] GameWorld gameWorld = null;
 
-    public float TargetScale {
-        get => targetScale;
-        private set => targetScale = value;
-    }
+	public GameObject bulletPrefab;
 
-    public float LocalScale {
-        get => transform.localScale.x;
-        private set => transform.localScale = Vector3.one * value;
-    }
+	public float timeToSpawn;
+	public float turnSpeed = 90f;
+	public float maxSpeed = 5f;
+	public float accel = 1.0f;
 
-    public float RadiusWorld => (playerRadius.position - transform.position).magnitude;
+	private float hue;
 
-    public float RadiusXWorld => playerRadius.position.x;
+	private Vector2 vel;
 
-    void OnTriggerEnter2D(Collider2D collider) {
+	public SFLight headlight;
+	public SFLight engineGlow;
+	public Color engineBaseGlow;
+	private float headlightIntensity;
+	private float engineGlowIntensity;
+	public float bulletIntensity;
 
-        var diffPos = collider.transform.position - transform.position;
+	public SFRenderer sfRenderer;
 
-        var diffRad = Mathf.Atan2(diffPos.y, diffPos.x);
-        var dotSplash = Instantiate(dotSplashPrefab, transform.parent);
-        var dotSplashPosition = diffPos.normalized * RadiusWorld;
-        dotSplash.transform.position = new Vector3(dotSplashPosition.x, dotSplashPosition.y, dotSplash.transform.position.z);
-        dotSplash.transform.rotation = Quaternion.Euler(0, 0, diffRad * Mathf.Rad2Deg - 90);
-        Destroy(collider.gameObject);
-        TargetScale += 0.1f;
-    }
+	private bool headlightOn = true;
 
-    void Update() {
-        LocalScale = Mathf.SmoothDamp(LocalScale, TargetScale, ref currentVelocity, smoothTime);
-    }
+	private void Start(){
+		headlightIntensity = headlight.intensity;
+		if (engineGlow != null) {
+			engineGlowIntensity = engineGlow.intensity;
+		}
+	}
+
+	private void Update(){
+		// Player movement
+		float horiz = Input.GetAxis("Horizontal");
+		float vert = Input.GetAxis("Vertical");
+
+		this.transform.Rotate(Vector3.back, horiz * Time.deltaTime * turnSpeed);
+
+		// Apply accel:
+		vel += Time.deltaTime * vert * accel * (Vector2) transform.up;
+
+		// clamp velocity:
+		vel = Mathf.Min(maxSpeed, vel.magnitude) * vel.normalized;
+
+		this.transform.position += (Vector3) vel * Time.deltaTime;
+
+		if(Input.GetKeyDown(KeyCode.Space)){
+			Fire();
+		}
+
+		// bounce the player off the bounds
+/* 		if(Mathf.Abs(transform.position.x) > 10f)
+			vel.x = -vel.x;
+		
+		if(Mathf.Abs(transform.position.y) > 10f)
+			vel.y = -vel.y;
+*/		
+
+		if(Input.GetKeyDown(KeyCode.G)){
+			sfRenderer.enabled = !sfRenderer.enabled;
+		}
+
+		// headlights!
+		if(Input.GetKeyDown(KeyCode.F)){
+			headlightOn = !headlightOn;
+		}
+
+		headlight.intensity = Mathf.Clamp(headlight.intensity + (headlightOn ? 1f : -1f) * 30f * Time.deltaTime, 0f, headlightIntensity);
+
+		if (engineGlow != null) {
+			engineGlow.intensity = 10f + engineGlowIntensity * Mathf.Abs (vert) * (Mathf.PerlinNoise (0f, Time.time * 20f) / 4f + 0.75f);
+			engineGlow.color = Color.HSVToRGB (0.08f + 0.07f * Mathf.PerlinNoise (Time.time * 5f, 0f), 1f, 1f);
+		}
+	}
+
+
+	public void Fire(){
+		GameObject go = (GameObject) Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+		AsteroidBullet b = go.GetComponent<AsteroidBullet>();
+		b.vel = maxSpeed * 3.0f * (Vector2) transform.up;
+
+		SFLight bulletLight = go.GetComponent<SFLight>();
+
+		bulletLight.intensity = bulletIntensity;
+		bulletLight.color = Color.HSVToRGB(hue, 1f, 1f);
+		b.sr.color  = bulletLight.color;
+
+		hue = (hue + 0.15f) % 1.0f;
+
+		Destroy(go, 5.0f);
+	}
+
 }

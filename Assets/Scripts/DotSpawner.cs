@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DotSpawner : MonoBehaviour, IPointerDownHandler {
+public class DotSpawner : MonoBehaviour {
     [SerializeField] GameObject dotPrefab = null;
     [SerializeField] Camera cam = null;
     [SerializeField] Player player = null;
@@ -9,12 +9,6 @@ public class DotSpawner : MonoBehaviour, IPointerDownHandler {
 
     public Player Player => player;
 
-    public void OnPointerDown(PointerEventData eventData) {
-        RectTransformUtility.ScreenPointToWorldPointInRectangle(gameWorldRt, eventData.position, cam, out var worldPoint);
-        if ((player.transform.position - worldPoint).magnitude > player.RadiusWorld) {
-            SpawnNewDot(eventData.position);
-        }
-    }
 
     public void SpawnNewDot(Vector3 worldPosition) {
         SpawnNewDot(RectTransformUtility.WorldToScreenPoint(cam, worldPosition));
