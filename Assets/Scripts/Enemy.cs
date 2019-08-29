@@ -39,4 +39,16 @@ public class Enemy : MonoBehaviour
        // dot.transform.localPosition = localPoint;
       //  Bullet.Player = player;
     }
+
+      void OnCollisionEnter2D(Collision2D collision) {
+     
+        if(collision.gameObject.tag == "Bullet")
+          Destroy(this);
+
+       // if (collision.relativeVelocity.magnitude > 2)
+       //     audio.Play();
+        
+    }
+
+
 }
