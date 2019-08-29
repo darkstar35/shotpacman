@@ -12,10 +12,12 @@ public class Player : MonoBehaviour {
 	public float timeToSpawn;
 	public float turnSpeed = 90f;
 	public float maxSpeed = 5f;
-	public float accel = 1.0f;
-
 	private float hue;
-
+[SerializeField] float targetScale = 1.0f;
+public float TargetScale {
+        get => targetScale;
+        private set => targetScale = value;
+    }
 	private Vector2 vel;
 
 	public SFLight headlight;
@@ -26,7 +28,6 @@ public class Player : MonoBehaviour {
 	public float bulletIntensity;
 
 	public SFRenderer sfRenderer;
-
 	private bool headlightOn = true;
 
 	private void Start(){
@@ -37,19 +38,12 @@ public class Player : MonoBehaviour {
 	}
 
 	private void Update(){
+		
 		// Player movement
-		float horiz = Input.GetAxis("Horizontal");
 		float vert = Input.GetAxis("Vertical");
+		float hori = Input.GetAxis("Horizontal");
 
-		this.transform.Rotate(Vector3.back, horiz * Time.deltaTime * turnSpeed);
-
-		// Apply accel:
-		vel += Time.deltaTime * vert * accel * (Vector2) transform.up;
-
-		// clamp velocity:
-		vel = Mathf.Min(maxSpeed, vel.magnitude) * vel.normalized;
-
-		this.transform.position += (Vector3) vel * Time.deltaTime;
+		transform.Translate(new Vector2(hori, vert));
 
 		if(Input.GetKeyDown(KeyCode.Space)){
 			Fire();
@@ -63,7 +57,7 @@ public class Player : MonoBehaviour {
 			vel.y = -vel.y;
 */		
 
-		if(Input.GetKeyDown(KeyCode.G)){
+		if(Input.GetKeyDown (KeyCode.G)){
 			sfRenderer.enabled = !sfRenderer.enabled;
 		}
 
@@ -82,19 +76,59 @@ public class Player : MonoBehaviour {
 
 
 	public void Fire(){
-		GameObject go = (GameObject) Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+		GameObject go = (GameObject) Instantiate(bulletPrefab, transform.position + Vector3.up, Quaternion.identity);
 		AsteroidBullet b = go.GetComponent<AsteroidBullet>();
 		b.vel = maxSpeed * 3.0f * (Vector2) transform.up;
 
 		SFLight bulletLight = go.GetComponent<SFLight>();
 
 		bulletLight.intensity = bulletIntensity;
-		bulletLight.color = Color.HSVToRGB(hue, 1f, 1f);
-		b.sr.color  = bulletLight.color;
+	//	bulletLight.color = Color.HSVToRGB(hue, 1f, 1f);
+	//		b.sr.color  = bulletLight.color;
 
 		hue = (hue + 0.15f) % 1.0f;
 
 		Destroy(go, 5.0f);
 	}
+	    void OnCollisionEnter2D(Collision2D collision) 
+		{
+     
+	 
+	     // if(collider.tag == "Bullet")
+		  {
+           //TargetScale -= 0.1f;
+		   
+		   transform.localScale -= Vector3.one* 0.1f;
+		   Destroy(collision.gameObject);
 
-}
+		  // break;
+          }
+		}
+		 void OnTriggerEnter2D(Collider2D collider) 
+		{
+     
+	 
+	     // if(collider.tag == "Bullet")
+		  {
+           //TargetScale -= 0.1f;
+		   
+		   transform.localScale -= Vector3.one* 0.1f;
+		   Destroy(collider.gameObject);
+
+		  // break;
+          }
+   
+		if(transform.localScale.magnitude < 0)
+		Destroy(this);
+		}
+	 
+        //if(collision.gameObject.tag == "bullet")
+        //  Destroy(this);
+
+       // if (collision.relativeVelocity.magnitude > 2)
+       //     audio.Play();
+        
+    }
+	
+
+
