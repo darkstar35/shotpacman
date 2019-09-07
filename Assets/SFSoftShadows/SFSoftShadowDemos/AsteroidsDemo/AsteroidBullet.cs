@@ -7,7 +7,7 @@ using Random=UnityEngine.Random;
 
 public class AsteroidBullet : MonoBehaviour {
 
-	public Vector2 vel;
+	public Vector3 vel;
 	public SpriteRenderer sr;
 
 	public void Update(){

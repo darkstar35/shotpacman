@@ -94,8 +94,8 @@ GameObject:
   m_Component:
   - component: {fileID: 22475788}
   - component: {fileID: 11498192}
-  - component: {fileID: 11495812}
-  - component: {fileID: 3200546805421094632}
+  - component: {fileID: 995341108}
+  - component: {fileID: 5968717142003102901}
   m_Layer: 0
   m_Name: A_Bullet
   m_TagString: Bullet
@@ -143,7 +143,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   _parallaxLight: 0
---- !u!114 &11495812
+--- !u!135 &995341108
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171686}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5968717142003102901
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -152,24 +165,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 171686}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4e7c3df2a0494a4b8b14aee12480d85, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f0f8010503854628aa794ebab7f053c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   vel: {x: 0, y: 0}
   sr: {fileID: 21259192}
---- !u!58 &3200546805421094632
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 171686}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5

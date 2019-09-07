@@ -64,8 +64,10 @@
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\GameWorld.cs" />
      <Compile Include="Assets\Scripts\MainCamera.cs" />
+     <Compile Include="Assets\Scripts\PCBullet.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\SkipRenderGraphic.cs" />
+     <Compile Include="Assets\Scripts\UIManager.cs" />
      <Compile Include="Assets\SFSoftShadows\SFLight.cs" />
      <Compile Include="Assets\SFSoftShadows\SFPolygon.cs" />
      <Compile Include="Assets\SFSoftShadows\SFRenderer.cs" />

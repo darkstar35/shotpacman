@@ -12,12 +12,11 @@ GameObject:
   - component: {fileID: 3248842986180507233}
   - component: {fileID: 6834621395363072401}
   - component: {fileID: 3026940359400777559}
-  - component: {fileID: 1626329425}
-  - component: {fileID: 1626329428}
-  - component: {fileID: 8171509559491227167}
+  - component: {fileID: 638097032}
+  - component: {fileID: 638097033}
   m_Layer: 0
   m_Name: Player_SFlight
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,12 +134,14 @@ MonoBehaviour:
   turnSpeed: 180
   maxSpeed: 5
   targetScale: 1
+  nHP: 5
+  PlayerMode: 0
   headlight: {fileID: 6834621395363059815}
   engineGlow: {fileID: 6834621395363075349}
   engineBaseGlow: {r: 0, g: 0, b: 0, a: 0}
   bulletIntensity: 3
   sfRenderer: {fileID: 0}
---- !u!58 &1626329425
+--- !u!58 &638097032
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,7 +157,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!50 &1626329428
+--- !u!50 &638097033
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -165,34 +166,18 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4155799828827713793}
   m_BodyType: 0
-  m_Simulated: 0
+  m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 6
---- !u!58 &8171509559491227167
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4155799828827713793}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!1 &6834621395352808719
 GameObject:
   m_ObjectHideFlags: 0

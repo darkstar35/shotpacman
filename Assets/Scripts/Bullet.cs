@@ -15,7 +15,11 @@ public class Bullet : MonoBehaviour
     }
 
     void Update() {
+
+        if(player != null)
         transform.position = Vector3.SmoothDamp(transform.position, Player.transform.position, ref currentVelocity, smoothTime);
+        else
+        transform.Translate(Vector3.down); 
     }
 
 

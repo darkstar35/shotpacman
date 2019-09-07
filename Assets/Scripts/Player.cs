@@ -8,12 +8,19 @@ using Random=UnityEngine.Random;
 public class Player : MonoBehaviour {
 
 	public GameObject bulletPrefab;
+	public List<GameObject> bulletInven;
 
 	public float timeToSpawn;
 	public float turnSpeed = 90f;
 	public float maxSpeed = 5f;
 	private float hue;
 [SerializeField] float targetScale = 1.0f;
+
+[SerializeField]public int nHP = 5;
+[SerializeField] enum Mode 	{ NORMAL, ABSORB };
+
+[SerializeField] Mode PlayerMode = Mode.NORMAL;
+
 public float TargetScale {
         get => targetScale;
         private set => targetScale = value;
@@ -26,11 +33,18 @@ public float TargetScale {
 	private float headlightIntensity;
 	private float engineGlowIntensity;
 	public float bulletIntensity;
-
 	public SFRenderer sfRenderer;
 	private bool headlightOn = true;
 
+	public int nbulletcnt;
+
 	private void Start(){
+
+
+		nbulletcnt = 8;
+		for(int n =0; n<nbulletcnt; n++)
+		bulletInven.Add(bulletPrefab);
+
 		headlightIntensity = headlight.intensity;
 		if (engineGlow != null) {
 			engineGlowIntensity = engineGlow.intensity;
@@ -39,24 +53,58 @@ public float TargetScale {
 
 	private void Update(){
 		
-		// Player movement
+		
+	switch(PlayerMode)
+		{
+
+		case Player.Mode.NORMAL :
+           this.transform.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+		   break;
+
+
+		   case Player.Mode.ABSORB :
+         this.transform.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+		   break;
+
+		   
+
+		  // break;
+		}
+
+		if(nHP <= 0)
+			Destroy(this.gameObject);
+	//	Instantiate(boom);
+
+
+		if(Input.GetKeyDown(KeyCode.Space)){
+			if(nbulletcnt > 0)
+			Fire();
+		}
+			if(Input.GetKeyDown (KeyCode.G)){
+			if(PlayerMode == Mode.NORMAL){
+				PlayerMode = Mode.ABSORB;
+
+
+			}
+			else
+			    PlayerMode = Mode.NORMAL;
+
+		}
+
+
+
+// Player movement
 		float vert = Input.GetAxis("Vertical");
 		float hori = Input.GetAxis("Horizontal");
 
 		transform.Translate(new Vector2(hori, vert));
-
-		if(Input.GetKeyDown(KeyCode.Space)){
-			Fire();
-		}
-
 		// bounce the player off the bounds
-/* 		if(Mathf.Abs(transform.position.x) > 10f)
-			vel.x = -vel.x;
+//	if(Mathf.Abs(transform.position.x) > 10f)
+//			vel.x = -vel.x;		
+//		if(Mathf.Abs(transform.position.y) > 10f)
+//			vel.y = -vel.y;
 		
-		if(Mathf.Abs(transform.position.y) > 10f)
-			vel.y = -vel.y;
-*/		
-
+/*
 		if(Input.GetKeyDown (KeyCode.G)){
 			sfRenderer.enabled = !sfRenderer.enabled;
 		}
@@ -65,20 +113,26 @@ public float TargetScale {
 		if(Input.GetKeyDown(KeyCode.F)){
 			headlightOn = !headlightOn;
 		}
-
+ */
 		headlight.intensity = Mathf.Clamp(headlight.intensity + (headlightOn ? 1f : -1f) * 30f * Time.deltaTime, 0f, headlightIntensity);
 
 		if (engineGlow != null) {
 			engineGlow.intensity = 10f + engineGlowIntensity * Mathf.Abs (vert) * (Mathf.PerlinNoise (0f, Time.time * 20f) / 4f + 0.75f);
 			engineGlow.color = Color.HSVToRGB (0.08f + 0.07f * Mathf.PerlinNoise (Time.time * 5f, 0f), 1f, 1f);
 		}
+		
 	}
 
 
 	public void Fire(){
-		GameObject go = (GameObject) Instantiate(bulletPrefab, transform.position + Vector3.up, Quaternion.identity);
-		AsteroidBullet b = go.GetComponent<AsteroidBullet>();
-		b.vel = maxSpeed * 3.0f * (Vector2) transform.up;
+
+		
+		
+		
+		
+				GameObject go = (GameObject) Instantiate(bulletPrefab, transform.position + Vector3.up, Quaternion.identity);
+		PCBullet b = go.GetComponent<PCBullet>();
+		b.vel = maxSpeed * 3.0f *  transform.up;
 
 		SFLight bulletLight = go.GetComponent<SFLight>();
 
@@ -89,42 +143,62 @@ public float TargetScale {
 		hue = (hue + 0.15f) % 1.0f;
 
 		Destroy(go, 5.0f);
+
+		nbulletcnt -= 1;
 	}
+
+
 	    void OnCollisionEnter2D(Collision2D collision) 
 		{
      
 	 
-	     // if(collider.tag == "Bullet")
+	      if(collision.gameObject.tag == "Bullet")
 		  {
-           //TargetScale -= 0.1f;
-		   
+
+		switch(PlayerMode)
+		{
+
+			case Player.Mode.NORMAL :
+           TargetScale -= 0.1f;
+		   nHP -= 1;
+		   Destroy(collision.gameObject);		   
 		   transform.localScale -= Vector3.one* 0.1f;
-		   Destroy(collision.gameObject);
+		   break;
+
+
+		   case Player.Mode.ABSORB :
+           TargetScale += 0.1f;
+		   nHP += 1;
+		   	
+		   Destroy(collision.gameObject);	   
+		   transform.localScale += Vector3.one* 0.1f;
+		   break;
+		}
+		   
 
 		  // break;
+		
           }
 		}
+		
 		 void OnTriggerEnter2D(Collider2D collider) 
 		{
      
 	 
-	     // if(collider.tag == "Bullet")
+	      if(collider.tag == "Bullet")
 		  {
-           //TargetScale -= 0.1f;
-		   
+           TargetScale -= 0.1f;
+		   nHP -= 1;
 		   transform.localScale -= Vector3.one* 0.1f;
 		   Destroy(collider.gameObject);
 
 		  // break;
           }
    
-		if(transform.localScale.magnitude < 0)
-		Destroy(this);
+//		if(transform.localScale.magnitude < 0)
+//		Destroy(this);
 		}
 	 
-        //if(collision.gameObject.tag == "bullet")
-        //  Destroy(this);
-
        // if (collision.relativeVelocity.magnitude > 2)
        //     audio.Play();
         
