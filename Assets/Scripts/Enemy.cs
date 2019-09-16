@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(0.5f, 1.0f));
         while (TargetScale > 0) {
             yield return new WaitForSeconds(spawnInterval);
-            var bullet = Instantiate(BulletPrefab, transform.position, transform.rotation);
+            var bullet = Instantiate(BulletPrefab, transform.position + Vector3.down*2, transform.rotation);
             bullet.GetComponent<Bullet>().Player = player;
           //  TargetScale -= 0.1f;
         }
@@ -43,7 +43,9 @@ public class Enemy : MonoBehaviour
       void OnCollisionEnter2D(Collision2D collision) {
      
         if(collision.gameObject.tag == "Bullet")
-          Destroy(this);
+        {
+           gameObject.SetActive(false);
+        }
 
        // if (collision.relativeVelocity.magnitude > 2)
        //     audio.Play();

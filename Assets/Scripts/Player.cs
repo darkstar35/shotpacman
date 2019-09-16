@@ -130,7 +130,7 @@ public float TargetScale {
 		
 		
 		
-				GameObject go = (GameObject) Instantiate(bulletPrefab, transform.position + Vector3.up, Quaternion.identity);
+				GameObject go = (GameObject) Instantiate(bulletPrefab, transform.position + new Vector3(0,2,0), Quaternion.identity);
 		PCBullet b = go.GetComponent<PCBullet>();
 		b.vel = maxSpeed * 3.0f *  transform.up;
 
