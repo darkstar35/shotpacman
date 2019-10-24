@@ -66,8 +66,6 @@ public float TargetScale {
          this.transform.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
 		   break;
 
-		   
-
 		  // break;
 		}
 
@@ -77,14 +75,13 @@ public float TargetScale {
 
 
 		if(Input.GetKeyDown(KeyCode.Space)){
-			if(nbulletcnt > 0)
+			if(nbulletcnt > 0 && PlayerMode == Mode.NORMAL)
 			Fire();
 		}
 			if(Input.GetKeyDown (KeyCode.G)){
-			if(PlayerMode == Mode.NORMAL){
+			if(PlayerMode == Mode.NORMAL)
+			{
 				PlayerMode = Mode.ABSORB;
-
-
 			}
 			else
 			    PlayerMode = Mode.NORMAL;
@@ -116,7 +113,8 @@ public float TargetScale {
  */
 		headlight.intensity = Mathf.Clamp(headlight.intensity + (headlightOn ? 1f : -1f) * 30f * Time.deltaTime, 0f, headlightIntensity);
 
-		if (engineGlow != null) {
+		if (engineGlow != null) 
+		{
 			engineGlow.intensity = 10f + engineGlowIntensity * Mathf.Abs (vert) * (Mathf.PerlinNoise (0f, Time.time * 20f) / 4f + 0.75f);
 			engineGlow.color = Color.HSVToRGB (0.08f + 0.07f * Mathf.PerlinNoise (Time.time * 5f, 0f), 1f, 1f);
 		}
@@ -124,13 +122,10 @@ public float TargetScale {
 	}
 
 
-	public void Fire(){
+	public void Fire()
+	{
 
-		
-		
-		
-		
-				GameObject go = (GameObject) Instantiate(bulletPrefab, transform.position + new Vector3(0,2,0), Quaternion.identity);
+		GameObject go = (GameObject) Instantiate(bulletPrefab, transform.position + new Vector3(0,2,0), Quaternion.identity);
 		PCBullet b = go.GetComponent<PCBullet>();
 		b.vel = maxSpeed * 3.0f *  transform.up;
 
@@ -159,7 +154,7 @@ public float TargetScale {
 		{
 
 			case Player.Mode.NORMAL :
-           TargetScale -= 0.1f;
+        //   TargetScale -= 0.1f;
 		   nHP -= 1;
 		   Destroy(collision.gameObject);		   
 		   transform.localScale -= Vector3.one* 0.1f;
@@ -167,11 +162,18 @@ public float TargetScale {
 
 
 		   case Player.Mode.ABSORB :
-           TargetScale += 0.1f;
+        //   TargetScale += 0.1f;
 		   nHP += 1;
 		   	
 		   Destroy(collision.gameObject);	   
 		   transform.localScale += Vector3.one* 0.1f;
+		   if(bulletInven.Count < 6)
+		   {
+
+		   GameObject bullet = (GameObject) Instantiate(bulletPrefab, transform.position + new Vector3(0,2,0), Quaternion.identity);
+		   bulletInven.Add(bullet);
+
+		   }
 		   break;
 		}
 		   
@@ -187,7 +189,7 @@ public float TargetScale {
 	 
 	      if(collider.tag == "Bullet")
 		  {
-           TargetScale -= 0.1f;
+        //   TargetScale -= 0.1f;
 		   nHP -= 1;
 		   transform.localScale -= Vector3.one* 0.1f;
 		   Destroy(collider.gameObject);
