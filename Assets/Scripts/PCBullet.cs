@@ -12,7 +12,8 @@ public class PCBullet : MonoBehaviour
 	public Vector2 vel;
 	public SpriteRenderer sr;
 
-	public void Update(){
+	public void Update()
+	{
 		this.transform.position += (Vector3) vel * Time.deltaTime;
 	}
 }

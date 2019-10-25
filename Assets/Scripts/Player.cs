@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using Random=UnityEngine.Random;
+ public enum Mode 	{ NORMAL, ABSORB };
 
 public class Player : MonoBehaviour {
 
@@ -16,10 +17,9 @@ public class Player : MonoBehaviour {
 	private float hue;
 [SerializeField] float targetScale = 1.0f;
 
-[SerializeField]public int nHP = 5;
-[SerializeField] enum Mode 	{ NORMAL, ABSORB };
+[SerializeField]public int nHP = 8;
 
-[SerializeField] Mode PlayerMode = Mode.NORMAL;
+public  Mode PlayerMode = Mode.NORMAL;
 
 public float TargetScale {
         get => targetScale;
@@ -35,12 +35,13 @@ public float TargetScale {
 	public float bulletIntensity;
 	public SFRenderer sfRenderer;
 	private bool headlightOn = true;
-
+	public bool bFlagRest = true;
 	public int nbulletcnt;
+public float fCooltime = 3f;
 
 	private void Start(){
-
-
+PlayerMode = Mode.NORMAL;
+		fCooltime = 3f;
 		nbulletcnt = 8;
 		for(int n =0; n<nbulletcnt; n++)
 		bulletInven.Add(bulletPrefab);
@@ -53,38 +54,60 @@ public float TargetScale {
 
 	private void Update(){
 		
-		
+		 if(bFlagRest == true)
+		   {
+		    fCooltime += Time.deltaTime;
+			if(fCooltime >= 3)
+				bFlagRest = false;
+		}
 	switch(PlayerMode)
 		{
 
-		case Player.Mode.NORMAL :
+		case Mode.NORMAL :
            this.transform.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+		  
 		   break;
 
 
-		   case Player.Mode.ABSORB :
-         this.transform.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+		   case Mode.ABSORB :
+		
+		   
+           this.transform.gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+		   fCooltime -= Time.deltaTime;
+			if(fCooltime <= 0 )
+			{
+			 PlayerMode = Mode.NORMAL;
+			 bFlagRest = true;
+			}
 		   break;
 
 		  // break;
 		}
 
 		if(nHP <= 0)
+		{
 			Destroy(this.gameObject);
 	//	Instantiate(boom);
 
+		}
 
-		if(Input.GetKeyDown(KeyCode.Space)){
+		if(Input.GetKeyDown(KeyCode.Space))
+		{
 			if(nbulletcnt > 0 && PlayerMode == Mode.NORMAL)
 			Fire();
 		}
-			if(Input.GetKeyDown (KeyCode.G)){
-			if(PlayerMode == Mode.NORMAL)
-			{
+			if(Input.GetKeyDown (KeyCode.G) && fCooltime <= 3f )
+		{
+			if(PlayerMode == Mode.NORMAL  &&  bFlagRest == false )
+			
 				PlayerMode = Mode.ABSORB;
+			
+			else if (PlayerMode == Mode.ABSORB && bFlagRest == false)
+			{
+			PlayerMode = Mode.NORMAL;
+			//bFlagRest = true;
 			}
-			else
-			    PlayerMode = Mode.NORMAL;
+			    
 
 		}
 
@@ -153,25 +176,24 @@ public float TargetScale {
 		switch(PlayerMode)
 		{
 
-			case Player.Mode.NORMAL :
+			case Mode.NORMAL :
         //   TargetScale -= 0.1f;
 		   nHP -= 1;
 		   Destroy(collision.gameObject);		   
-		   transform.localScale -= Vector3.one* 0.1f;
+		   transform.localScale -= Vector3.one* 0.01f;
 		   break;
 
 
-		   case Player.Mode.ABSORB :
+		   case Mode.ABSORB :
         //   TargetScale += 0.1f;
 		   nHP += 1;
 		   	
 		   Destroy(collision.gameObject);	   
-		   transform.localScale += Vector3.one* 0.1f;
-		   if(bulletInven.Count < 6)
+		   transform.localScale += Vector3.one* 0.01f;
+		   if(nbulletcnt < 8)
 		   {
-
-		   GameObject bullet = (GameObject) Instantiate(bulletPrefab, transform.position + new Vector3(0,2,0), Quaternion.identity);
-		   bulletInven.Add(bullet);
+				nbulletcnt += 1;
+		
 
 		   }
 		   break;

@@ -25,9 +25,9 @@ public class MainCamera : MonoBehaviour
     
         if (followTarget != null && hotairBalloon != null) 
         {
-            var followTargetPosition = new Vector3(transform.position.x, followTarget.position.y, transform.position.z);
+            var followTargetPosition = new Vector3(transform.position.x, followTarget.position.y +3, transform.position.z);
            // var followSmoothTime = hotairBalloon.turnSpeed > 0 ? hotairBalloon.maxSpeed * followSmoothMaxTime : 0;
-            transform.position = Vector3.SmoothDamp(transform.position, followTargetPosition, ref followVelocity, 3f);
+            transform.position = Vector3.SmoothDamp(transform.position, followTargetPosition, ref followVelocity, 0.5f);
             //transform.position = transform.position- hotairBalloon.transform.position ;
         }
 

@@ -1,6 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.SocialPlatforms;
+using UnityEngine.SocialPlatforms.GameCenter;
+using UnityEngine.SceneManagement;
+
 
 
 public enum GameState
@@ -16,12 +21,21 @@ public enum GameState
 
 }
 
-public class GameManager : MonoBehaviour
+public class GameManager :  Singleton<GameManager>
 {
-    GameState GameState = GameState.Ready;
+
+    public static GameManager me;
+    public GameState GameState = GameState.Ready;
     // Start is called before the first frame update
     public float fGametime;
     public int Die;
+    public Player PC;
+
+public void Awake()
+{
+
+    me = this;
+}
 
     void Start()
     {
@@ -31,6 +45,7 @@ public class GameManager : MonoBehaviour
       void GameInit()
     {
         GameState = GameState.Ready;
+        PC.fCooltime = 3f;
     }
 
     public void GameStart()
@@ -48,7 +63,7 @@ public class GameManager : MonoBehaviour
 
         switch (GameState)
         {
-            case GameState.Ready: //191029 현재 사용하지 않는 코드
+            case GameState.Ready: //191029 
               Time.timeScale = 0f;
 
                 break;

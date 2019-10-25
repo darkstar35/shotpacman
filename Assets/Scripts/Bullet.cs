@@ -5,9 +5,15 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     
+    enum direciton { DOWN, TOP, RIGHT, LEFT }
+
     [SerializeField] Player player = null;
     [SerializeField] Vector3 currentVelocity;
     [SerializeField] float smoothTime = 0.1f;
+
+    [SerializeField] float fLifeTime = 0;
+    public int nLevel;
+
 
     public Player Player {
         get => player;
@@ -16,10 +22,28 @@ public class Bullet : MonoBehaviour
 
     void Update() {
 
+
+        if(nLevel == 0 || nLevel == null)
+        {
+            transform.Translate(Vector3.down*0.1f); 
+        }
+
+        else if(nLevel == 1)
+        {
         if(player != null)
         transform.position = Vector3.SmoothDamp(transform.position, Player.transform.position, ref currentVelocity, smoothTime);
-        else
-        transform.Translate(Vector3.down); 
+        }
+
+        fLifeTime += Time.deltaTime;
+
+        if(fLifeTime > 10)
+        {
+
+ //this.gameObject.SetActive(false);
+  Destroy(this.gameObject);
+        }
+        
+       
     }
 
 
@@ -28,8 +52,8 @@ public class Bullet : MonoBehaviour
      
 	 
 	 
-       // if(collision.gameObject.tag == "Player")
-       //   Destroy(this);
+        if(collision.gameObject.tag == "Wall")
+          Destroy(this);
 
        // if (collision.relativeVelocity.magnitude > 2)
        //     audio.Play();

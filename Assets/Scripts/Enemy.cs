@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] float targetScale = 1.0f;
     [SerializeField] float currentVelocity = 0.0f;
     [SerializeField] float smoothTime = 0.3f;
-    [SerializeField] DotSpawner dotSpawner = null;
+    [SerializeField] int nLevel = 0;
     [SerializeField] Transform dotHelperRadius = null;
     [SerializeField] float spawnInterval = 0.5f;
     [SerializeField] GameObject BulletPrefab = null;
@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour
         while (TargetScale > 0) {
             yield return new WaitForSeconds(spawnInterval);
             var bullet = Instantiate(BulletPrefab, transform.position + Vector3.down*2, transform.rotation);
+            bullet.GetComponent<Bullet>().nLevel = 0;
             bullet.GetComponent<Bullet>().Player = player;
           //  TargetScale -= 0.1f;
         }
