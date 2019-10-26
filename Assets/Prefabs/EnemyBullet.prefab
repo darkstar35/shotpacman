@@ -97,7 +97,9 @@ MonoBehaviour:
   player: {fileID: 0}
   currentVelocity: {x: 0, y: 0, z: 0}
   smoothTime: 0.9
+  fLifeTime: 0
   nLevel: 0
+  fSpeed: 0.1
 --- !u!58 &2141525927734497300
 CircleCollider2D:
   m_ObjectHideFlags: 0

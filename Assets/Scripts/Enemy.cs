@@ -25,8 +25,8 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(0.5f, 1.0f));
         while (TargetScale > 0) {
             yield return new WaitForSeconds(spawnInterval);
-            var bullet = Instantiate(BulletPrefab, transform.position + Vector3.down*2, transform.rotation);
-            bullet.GetComponent<Bullet>().nLevel = 0;
+            var bullet = Instantiate(BulletPrefab, transform.position + Vector3.down*1.5f, transform.rotation);
+           // bullet.GetComponent<Bullet>().nLevel = 0;
             bullet.GetComponent<Bullet>().Player = player;
           //  TargetScale -= 0.1f;
         }

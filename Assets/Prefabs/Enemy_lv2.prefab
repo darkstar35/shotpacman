@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 1590658194}
   - component: {fileID: 7047319679087650230}
   m_Layer: 0
-  m_Name: Enemy
-  m_TagString: Untagged
+  m_Name: Enemy_lv2
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
   targetScale: 1
   currentVelocity: 0
   smoothTime: 0.3
-  dotSpawner: {fileID: 0}
+  nLevel: 0
   dotHelperRadius: {fileID: 0}
   spawnInterval: 1
   BulletPrefab: {fileID: 5274340342978043271, guid: 86db7ecc2487748bf924661b43c489ea,

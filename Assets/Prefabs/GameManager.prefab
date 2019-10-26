@@ -63,3 +63,4 @@ MonoBehaviour:
   GameState: 0
   fGametime: 0
   Die: 0
+  PC: {fileID: 0}

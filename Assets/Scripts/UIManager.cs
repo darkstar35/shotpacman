@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor.SceneManagement;
 
+
 public class UIManager : MonoBehaviour
 {
     public int MAXCNT = 8;
@@ -12,12 +13,13 @@ public class UIManager : MonoBehaviour
     public Text nHp;
     public Text nBulletcnt;
     public Text nStage;
+    public Text UIcntdown;
     public GameState GameState;
     public Image gamestart;
     public Image gameover;
     public Image stageclear;
     public Image gamemenuimg;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +38,7 @@ public class UIManager : MonoBehaviour
        
     }
 
-    public Text UIcntdown;
+ 
     // Update is called once per frame
     void Update()
     {
@@ -72,7 +74,8 @@ public class UIManager : MonoBehaviour
                 break;
 
             case GameState.Clear:
-      
+                Time.timeScale = 0f;
+                stageclear.gameObject.SetActive(true);
                 break;
 
             case GameState.Gameover:

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4473400630840089460}
   - component: {fileID: 2141525927734497300}
   m_Layer: 0
-  m_Name: EnemyBullet
+  m_Name: EnemyBullet_enduce
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5274340342978043271}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.627, y: 3, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -58,6 +58,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -95,7 +96,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   currentVelocity: {x: 0, y: 0, z: 0}
-  smoothTime: 0.9
+  smoothTime: 3
+  fLifeTime: 0
+  nLevel: 1
+  fSpeed: 0.2
 --- !u!58 &2141525927734497300
 CircleCollider2D:
   m_ObjectHideFlags: 0

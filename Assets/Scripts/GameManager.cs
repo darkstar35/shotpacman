@@ -1,12 +1,7 @@
 ﻿
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
-using UnityEngine.SocialPlatforms;
-using UnityEngine.SocialPlatforms.GameCenter;
 using UnityEngine.SceneManagement;
-
-
 
 public enum GameState
 {
@@ -22,27 +17,31 @@ public enum GameState
 }
 
 public class GameManager :  Singleton<GameManager>
-{
-
+{ 
+    
+    public static int nLevel = 0;
+  
+    public Player PC;
     public static GameManager me;
     public GameState GameState = GameState.Ready;
     // Start is called before the first frame update
     public float fGametime;
     public int Die;
-    public Player PC;
+    public int nEnemyCnt;
 
 public void Awake()
 {
-
     me = this;
 }
 
-    void Start()
-    {
-        GameState = GameState.Ready;
-    }
+void Start()
+{
+    GameState = GameState.Ready;
+    PC = GameObject.FindObjectOfType<Player>();
+    nEnemyCnt = GameObject.FindGameObjectsWithTag("Enemy").Length;
+}
 
-      void GameInit()
+    void GameInit()
     {
         GameState = GameState.Ready;
         PC.fCooltime = 3f;
@@ -53,14 +52,15 @@ public void Awake()
         GameState = GameState.Play;
         
     }
-    void Clear()
+    public void Clear()
     {
-        GameState = GameState.Ready;
+      
+        nLevel++;
+        SceneManager.LoadScene(nLevel);
     }
-    // Update is called once per frame
+     // Update is called once per frame
     void Update()
     {
-
         switch (GameState)
         {
             case GameState.Ready: //191029 
@@ -69,9 +69,20 @@ public void Awake()
                 break;
 
             case GameState.Play:
-            Time.timeScale = 1f;
+                
+                
+                Time.timeScale = 1f;                
+                nEnemyCnt = GameObject.FindGameObjectsWithTag("Enemy").Length;
+
+                if(PC.nHP <= 0) // 게임 실패 조건
+                    GameState = GameState.Gameover;
+                if(nEnemyCnt <= 0) //게임 쿨라어 조건 달성
+                {  
+                    GameState = GameState.Clear;
+                }
                 if (fGametime < 1000)
                     fGametime += Time.deltaTime;
+
 
   
                 break;
@@ -91,10 +102,11 @@ public void Awake()
 
             case GameState.Gameover:
                 Time.timeScale = 0.05f;
-;
+
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     Die++;
+                    SceneManager.LoadScene(0);
                     GameInit();
                 }
                 break;

@@ -39,8 +39,9 @@ public float TargetScale {
 	public int nbulletcnt;
 	public float fCooltime = 3f;
 
-	private void Start(){
-PlayerMode = Mode.NORMAL;
+	private void Start()
+	{
+		PlayerMode = Mode.NORMAL;
 		fCooltime = 3f;
 		nbulletcnt = 8;
 		for(int n =0; n<nbulletcnt; n++)
@@ -110,7 +111,7 @@ PlayerMode = Mode.NORMAL;
 			
 			else if (PlayerMode == Mode.ABSORB && bFlagRest != true )
 			{
-			PlayerMode = Mode.NORMAL;
+				PlayerMode = Mode.NORMAL;
 			//bFlagRest = true;
 			}
 		}
@@ -200,8 +201,6 @@ PlayerMode = Mode.NORMAL;
 		   if(nbulletcnt < 8)
 		   {
 				nbulletcnt += 1;
-		
-
 		   }
 		   break;
 		}
