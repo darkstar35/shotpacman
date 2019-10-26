@@ -807,6 +807,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4754085659710598614, guid: 4ba29b5706ce94de1ba7b45d50852697,
+        type: 3}
+      propertyPath: PC
+      value: 
+      objectReference: {fileID: 697087508}
     - target: {fileID: 4754085659710598615, guid: 4ba29b5706ce94de1ba7b45d50852697,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -865,11 +870,6 @@ PrefabInstance:
     - target: {fileID: 4754085659710598632, guid: 4ba29b5706ce94de1ba7b45d50852697,
         type: 3}
       propertyPath: player
-      value: 
-      objectReference: {fileID: 697087508}
-    - target: {fileID: 4754085659710598614, guid: 4ba29b5706ce94de1ba7b45d50852697,
-        type: 3}
-      propertyPath: PC
       value: 
       objectReference: {fileID: 697087508}
     m_RemovedComponents: []
@@ -1001,6 +1001,74 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1151973217}
+    - target: {fileID: 5369112410677889761, guid: 07df846adcd87418f97a88074c1c2c21,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.3589228
+      objectReference: {fileID: 0}
+    - target: {fileID: 5369112410677889761, guid: 07df846adcd87418f97a88074c1c2c21,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.9137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 1539445204591006789, guid: 07df846adcd87418f97a88074c1c2c21,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.3589228
+      objectReference: {fileID: 0}
+    - target: {fileID: 1539445204591006789, guid: 07df846adcd87418f97a88074c1c2c21,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.9137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134311313, guid: 07df846adcd87418f97a88074c1c2c21, type: 3}
+      propertyPath: m_Color.r
+      value: 0.3589228
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134311313, guid: 07df846adcd87418f97a88074c1c2c21, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915528410, guid: 07df846adcd87418f97a88074c1c2c21, type: 3}
+      propertyPath: m_Color.r
+      value: 0.3589228
+      objectReference: {fileID: 0}
+    - target: {fileID: 1915528410, guid: 07df846adcd87418f97a88074c1c2c21, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953553825, guid: 07df846adcd87418f97a88074c1c2c21, type: 3}
+      propertyPath: m_Color.r
+      value: 0.3589228
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953553825, guid: 07df846adcd87418f97a88074c1c2c21, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 748956179, guid: 07df846adcd87418f97a88074c1c2c21, type: 3}
+      propertyPath: m_Color.r
+      value: 0.3589228
+      objectReference: {fileID: 0}
+    - target: {fileID: 748956179, guid: 07df846adcd87418f97a88074c1c2c21, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 293957939, guid: 07df846adcd87418f97a88074c1c2c21, type: 3}
+      propertyPath: m_Color.r
+      value: 0.3589228
+      objectReference: {fileID: 0}
+    - target: {fileID: 293957939, guid: 07df846adcd87418f97a88074c1c2c21, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 53472154, guid: 07df846adcd87418f97a88074c1c2c21, type: 3}
+      propertyPath: m_Color.r
+      value: 0.3589228
+      objectReference: {fileID: 0}
+    - target: {fileID: 53472154, guid: 07df846adcd87418f97a88074c1c2c21, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9137255
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07df846adcd87418f97a88074c1c2c21, type: 3}
 --- !u!1001 &6344350064148570745

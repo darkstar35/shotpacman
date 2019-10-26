@@ -40,7 +40,6 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
    
         nStage.text = EditorSceneManager.sceneCount.ToString();
         switch(GameManager.me.GameState)
@@ -61,13 +60,9 @@ public class UIManager : MonoBehaviour
             for(int n2 = 0; n2 < player.nbulletcnt; n2++)
             bullets[n2].gameObject.SetActive(true); 
         }
-        nHp.text = player.nHP.ToString(); 
-        nBulletcnt.text = player.nbulletcnt.ToString();
-
-        if(player.PlayerMode == Mode.ABSORB)
+          nHp.text = player.nHP.ToString(); 
+          nBulletcnt.text = player.nbulletcnt.ToString();
           UIcntdown.text = player.fCooltime.ToString();
-
-
 
                 break;
 

@@ -35,9 +35,9 @@ public float TargetScale {
 	public float bulletIntensity;
 	public SFRenderer sfRenderer;
 	private bool headlightOn = true;
-	public bool bFlagRest = true;
+	public bool bFlagRest = false;
 	public int nbulletcnt;
-public float fCooltime = 3f;
+	public float fCooltime = 3f;
 
 	private void Start(){
 PlayerMode = Mode.NORMAL;
@@ -54,31 +54,34 @@ PlayerMode = Mode.NORMAL;
 
 	private void Update(){
 		
-		 if(bFlagRest == true)
-		   {
-		    fCooltime += Time.deltaTime;
-			if(fCooltime >= 3)
-				bFlagRest = false;
-		}
+	
 	switch(PlayerMode)
 		{
 
 		case Mode.NORMAL :
-           this.transform.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
-		  
+		       this.transform.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+		
+			if(fCooltime <= 3 )			
+			{
+				fCooltime += Time.deltaTime;
+				bFlagRest = true;
+				
+			} 
+			
+    
 		   break;
 
 
 		   case Mode.ABSORB :
-		
-		   
            this.transform.gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
-		   fCooltime -= Time.deltaTime;
-			if(fCooltime <= 0 )
-			{
-			 PlayerMode = Mode.NORMAL;
-			 bFlagRest = true;
+		  
+			if(fCooltime >= 0 )
+			{ 
+				fCooltime -= Time.deltaTime;
+				bFlagRest = false;
 			}
+			 
+			
 		   break;
 
 		  // break;
@@ -87,6 +90,7 @@ PlayerMode = Mode.NORMAL;
 		if(nHP <= 0)
 		{
 			Destroy(this.gameObject);
+
 	//	Instantiate(boom);
 
 		}
@@ -96,17 +100,20 @@ PlayerMode = Mode.NORMAL;
 			if(nbulletcnt > 0 && PlayerMode == Mode.NORMAL)
 			Fire();
 		}
-			if(Input.GetKeyDown (KeyCode.G) && fCooltime <= 3f )
+		if(Input.GetKeyDown (KeyCode.G)  )
 		{
-			if(PlayerMode == Mode.NORMAL  &&  bFlagRest == false )
+
+		//if(   bFlagRest == false )
+		{
+			if(PlayerMode == Mode.NORMAL && bFlagRest == true  )
+			PlayerMode = Mode.ABSORB;
 			
-				PlayerMode = Mode.ABSORB;
-			
-			else if (PlayerMode == Mode.ABSORB && bFlagRest == false)
+			else if (PlayerMode == Mode.ABSORB && bFlagRest != true )
 			{
 			PlayerMode = Mode.NORMAL;
 			//bFlagRest = true;
 			}
+		}
 			    
 
 		}
