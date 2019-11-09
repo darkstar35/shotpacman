@@ -10,7 +10,6 @@ public class Player : MonoBehaviour {
 
 	public GameObject bulletPrefab;
 	public List<GameObject> bulletInven;
-
 	public float timeToSpawn;
 	public float turnSpeed = 90f;
 	public float maxSpeed = 5f;
@@ -18,7 +17,8 @@ public class Player : MonoBehaviour {
 [SerializeField] float targetScale = 1.0f;
 
 [SerializeField]public int nHP = 8;
-
+public Image I_circle;
+public Image I_HP;
 public  Mode PlayerMode = Mode.NORMAL;
 
 public float TargetScale {
@@ -41,6 +41,9 @@ public float TargetScale {
 
 	private void Start()
 	{
+		I_circle = GameObject.Find("I_circle").GetComponent<Image>();
+		I_HP = GameObject.Find("I_HP").GetComponent<Image>();
+		//nSecond =  GameObject.Find("nSecond").GetComponent<Image>();
 		PlayerMode = Mode.NORMAL;
 		fCooltime = 3f;
 		nbulletcnt = 8;
@@ -55,7 +58,7 @@ public float TargetScale {
 
 	private void Update(){
 		
-	
+	I_circle = GameObject.Find("I_circle").GetComponent<Image>();
 	switch(PlayerMode)
 		{
 
@@ -65,6 +68,16 @@ public float TargetScale {
 			if(fCooltime <= 3 )			
 			{
 				fCooltime += Time.deltaTime;
+				I_circle.fillAmount = fCooltime/3;
+				
+				if(fCooltime >= 2 && fCooltime <= 3)
+				I_HP.sprite = Resources.Load<Sprite>("Sprites/3");
+				else if(fCooltime >= 1 && fCooltime <= 2)
+				I_HP.sprite = Resources.Load<Sprite>("Sprites/2");
+				else if(fCooltime > 0 && fCooltime <= 1)
+				I_HP.sprite = Resources.Load<Sprite>("Sprites/1");
+				else if(fCooltime <= 0)
+				I_HP.sprite = Resources.Load<Sprite>("Sprites/0");
 				bFlagRest = true;
 				
 			} 
@@ -79,6 +92,15 @@ public float TargetScale {
 			if(fCooltime >= 0 )
 			{ 
 				fCooltime -= Time.deltaTime;
+				I_circle.fillAmount = fCooltime/3;
+				if(fCooltime >= 2 && fCooltime <= 3)
+				I_HP.sprite = Resources.Load<Sprite>("Sprites/3");
+				else if(fCooltime >= 1 && fCooltime <= 2)
+				I_HP.sprite = Resources.Load<Sprite>("Sprites/2");
+				else if(fCooltime > 0 && fCooltime <= 1)
+				I_HP.sprite = Resources.Load<Sprite>("Sprites/1");
+				else if(fCooltime <= 0)
+				I_HP.sprite = Resources.Load<Sprite>("Sprites/0");
 				bFlagRest = false;
 			}
 			 

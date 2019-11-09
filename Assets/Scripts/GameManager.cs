@@ -23,6 +23,7 @@ public class GameManager :  Singleton<GameManager>
   
     public Player PC;
     public static GameManager me;
+    public UIManager UIManager;
     public GameState GameState = GameState.Ready;
     // Start is called before the first frame update
     public float fGametime;
@@ -38,6 +39,7 @@ void Start()
 {
     GameState = GameState.Ready;
     PC = GameObject.FindObjectOfType<Player>();
+    UIManager = GameObject.FindObjectOfType<UIManager>();
     nEnemyCnt = GameObject.FindGameObjectsWithTag("Enemy").Length;
 }
 
@@ -49,7 +51,9 @@ void Start()
 
     public void GameStart()
     {
-        GameState = GameState.Play;
+         UIManager.GameStart();
+         GameState = GameState.Play;
+       
         
     }
     public void Clear()
@@ -65,6 +69,10 @@ void Start()
         {
             case GameState.Ready: //191029 
               Time.timeScale = 0f;
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.KeypadEnter))
+                {
+                    GameStart();
+                }
 
                 break;
 
@@ -96,14 +104,14 @@ void Start()
             case GameState.Clear:
                 Time.timeScale = 0.7f;
 
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.KeypadEnter))
                     Clear();
                 break;
 
             case GameState.Gameover:
                 Time.timeScale = 0.05f;
 
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.KeypadEnter))
                 {
                     Die++;
                     SceneManager.LoadScene(0);
