@@ -15,6 +15,7 @@ public class MainCamera : MonoBehaviour
   
 
     void Start() {
+        Screen.SetResolution(1200, 960, true);
         followVelocity = new Vector3(1,1,1);
     }
 

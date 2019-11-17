@@ -38,19 +38,20 @@ public float TargetScale {
 	public bool bFlagRest = false;
 	public int nbulletcnt;
 	public float fCooltime = 3f;
+	public DynamicJoystick joystick;
 
 	private void Start()
 	{
 		I_circle = GameObject.Find("I_circle").GetComponent<Image>();
 		I_HP = GameObject.Find("I_HP").GetComponent<Image>();
-		//nSecond =  GameObject.Find("nSecond").GetComponent<Image>();
+	
 		PlayerMode = Mode.NORMAL;
 		fCooltime = 3f;
 		nbulletcnt = 8;
 		for(int n =0; n<nbulletcnt; n++)
 		bulletInven.Add(bulletPrefab);
-
 		headlightIntensity = headlight.intensity;
+
 		if (engineGlow != null) {
 			engineGlowIntensity = engineGlow.intensity;
 		}
@@ -123,31 +124,34 @@ public float TargetScale {
 			if(nbulletcnt > 0 && PlayerMode == Mode.NORMAL)
 			Fire();
 		}
-		if(Input.GetKeyDown (KeyCode.G)  )
+		if(Input.GetKeyDown (KeyCode.G) || joystick.bGstate == false )
 		{
 
-		//if(   bFlagRest == false )
 		{
-			if(PlayerMode == Mode.NORMAL && bFlagRest == true  )
+			if(PlayerMode == Mode.NORMAL && bFlagRest == true  )// bFlagRest == true 코드가 제대로 동작하지 않음
 			PlayerMode = Mode.ABSORB;
 			
 			else if (PlayerMode == Mode.ABSORB && bFlagRest != true )
 			{
 				PlayerMode = Mode.NORMAL;
-			//bFlagRest = true;
+			   //bFlagRest = true;
 			}
 		}
 			    
 
 		}
 
+ transform.Translate(new Vector2(joystick.Horizontal, joystick.Vertical) );
+// transform.Translate(DynamicJoystick.Horizontal, joystick.Vertical);
 
 
+/*
 // Player movement
 		float vert = Input.GetAxis("Vertical");
 		float hori = Input.GetAxis("Horizontal");
 
 		transform.Translate(new Vector2(hori, vert));
+*/
 		// bounce the player off the bounds
 //	if(Mathf.Abs(transform.position.x) > 10f)
 //			vel.x = -vel.x;		
@@ -168,12 +172,11 @@ public float TargetScale {
 
 		if (engineGlow != null) 
 		{
-			engineGlow.intensity = 10f + engineGlowIntensity * Mathf.Abs (vert) * (Mathf.PerlinNoise (0f, Time.time * 20f) / 4f + 0.75f);
+			engineGlow.intensity = 10f + engineGlowIntensity * Mathf.Abs (Input.GetAxis("Vertical")) * (Mathf.PerlinNoise (0f, Time.time * 20f) / 4f + 0.75f);
 			engineGlow.color = Color.HSVToRGB (0.08f + 0.07f * Mathf.PerlinNoise (Time.time * 5f, 0f), 1f, 1f);
 		}
 		
 	}
-
 
 	public void Fire()
 	{

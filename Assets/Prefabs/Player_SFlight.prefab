@@ -385,7 +385,7 @@ MonoBehaviour:
   bulletInven: []
   timeToSpawn: 1.2
   turnSpeed: 180
-  maxSpeed: 5
+  maxSpeed: 1
   targetScale: 1
   nHP: 3
   I_circle: {fileID: 461840806}
@@ -399,6 +399,7 @@ MonoBehaviour:
   bFlagRest: 0
   nbulletcnt: 8
   fCooltime: 3
+  joystick: {fileID: 0}
 --- !u!58 &638097032
 CircleCollider2D:
   m_ObjectHideFlags: 0

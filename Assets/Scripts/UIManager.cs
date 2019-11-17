@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor.SceneManagement;
+//using UnityEditor.SceneManagement;
 
 
 public class UIManager : MonoBehaviour
@@ -43,7 +43,7 @@ public class UIManager : MonoBehaviour
     void Update()
     {
    
-        nStage.text = EditorSceneManager.sceneCount.ToString();
+        nStage.text = GameManager.nLevel.ToString();
         switch(GameManager.me.GameState)
         {
             case GameState.Ready: 
