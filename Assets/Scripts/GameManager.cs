@@ -18,10 +18,9 @@ public enum GameState
 
 public class GameManager :  Singleton<GameManager>
 { 
-    
+ 
     public static int nLevel = 0;
-  
-    public Player PC;
+       [SerializeField] Player PC;
     public static GameManager me;
     public UIManager UIManager;
     public GameState GameState = GameState.Ready;
@@ -37,6 +36,7 @@ public void Awake()
 
 void Start()
 {
+   
     GameState = GameState.Ready;
     PC = GameObject.FindObjectOfType<Player>();
     UIManager = GameObject.FindObjectOfType<UIManager>();

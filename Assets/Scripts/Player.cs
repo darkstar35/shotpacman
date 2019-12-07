@@ -70,7 +70,8 @@ public float TargetScale {
 			{
 				fCooltime += Time.deltaTime;
 				I_circle.fillAmount = fCooltime/3;
-				
+				I_HP.sprite = Resources.Load<Sprite>("Sprites/white-donut-512-transparent");
+			/*
 				if(fCooltime >= 2 && fCooltime <= 3)
 				I_HP.sprite = Resources.Load<Sprite>("Sprites/3");
 				else if(fCooltime >= 1 && fCooltime <= 2)
@@ -79,6 +80,7 @@ public float TargetScale {
 				I_HP.sprite = Resources.Load<Sprite>("Sprites/1");
 				else if(fCooltime <= 0)
 				I_HP.sprite = Resources.Load<Sprite>("Sprites/0");
+				*/
 				bFlagRest = true;
 				
 			} 
@@ -101,9 +103,13 @@ public float TargetScale {
 				else if(fCooltime > 0 && fCooltime <= 1)
 				I_HP.sprite = Resources.Load<Sprite>("Sprites/1");
 				else if(fCooltime <= 0)
-				I_HP.sprite = Resources.Load<Sprite>("Sprites/0");
+			{	I_HP.sprite = Resources.Load<Sprite>("Sprites/0");
 				bFlagRest = false;
+			PlayerMode = Mode.NORMAL;
+				}
 			}
+
+			
 			 
 			
 		   break;
@@ -124,18 +130,20 @@ public float TargetScale {
 			if(nbulletcnt > 0 && PlayerMode == Mode.NORMAL)
 			Fire();
 		}
-		if(Input.GetKeyDown (KeyCode.G) || joystick.bGstate == false )
+
+			
+		if(Input.GetKeyDown (KeyCode.G)  )
 		{
 
 		{
 			if(PlayerMode == Mode.NORMAL && bFlagRest == true  )// bFlagRest == true 코드가 제대로 동작하지 않음
 			PlayerMode = Mode.ABSORB;
-			
-			else if (PlayerMode == Mode.ABSORB && bFlagRest != true )
+			if (PlayerMode == Mode.ABSORB && bFlagRest == false )
 			{
 				PlayerMode = Mode.NORMAL;
 			   //bFlagRest = true;
 			}
+		
 		}
 			    
 
