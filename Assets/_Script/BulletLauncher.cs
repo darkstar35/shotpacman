@@ -19,19 +19,15 @@ public void SetGameController(IGameController controller)
 
 }
 
+public void OnFireButtonPressed()
+{
+    Debug.Log("Fired a bullet!");
+}
+
     // Update is called once per frame
     void Update()
     {
-        if(controller != null)
-        {
-            if(controller.FireButtonPressed())
-            Debug.Log("Fired a Bullet!");
-        }
-        else
-        {
 
-            Debug.LogError("controlleris null!");
-        }
 
  
     }

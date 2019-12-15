@@ -14,6 +14,11 @@ public class GameManager_ : MonoBehaviour
        // launcher = Instantiate(launcherPrefab);
        // launcher.SetGameController(new KeyGameController());
         launcher = new BulletLauncher(new KeyGameController());
+
+        MouseGameController mouseController =
+        gameObject.AddComponent<MouseGameController>();
+
+       // mouseController.FireButtonPressed += launcher.OnFireButtonPressed;
     }
 
     // Update is called once per frame

@@ -1,11 +1,31 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MouseGameController : IGameController
+public class MouseGameController : MonoBehaviour, IGameController
 {
-   public bool FireButtonPressed()
+
+   public Action<int, string> FireButtonPressed;
+
+   void Update()
    {
-       return Input.GetMouseButtonDown(0);
+       if(Input.GetMouseButtonDown(0))
+       {
+           //if(FireButtonPressed != null)
+           //FireButtonPressed();
+       }
+
    }
+   public void OnFireButtonPressed()
+   {
+       Debug.Log("Fired a bullet");
+
+   }
+
+   public void OnFireButtonPressed(int count)
+   {
+
+   }
+
 }

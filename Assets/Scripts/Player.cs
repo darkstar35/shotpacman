@@ -82,6 +82,8 @@ public float TargetScale {
 				I_HP.sprite = Resources.Load<Sprite>("Sprites/0");
 				*/
 				bFlagRest = true;
+				joystick.bGstate = false;
+				joystick.handle.GetComponent<Image>().color = Color.white;
 				
 			} 
 			
@@ -132,7 +134,7 @@ public float TargetScale {
 		}
 
 			
-		if(Input.GetKeyDown (KeyCode.G)  )
+		if(Input.GetKeyDown (KeyCode.G) || joystick.bGstate == true )
 		{
 
 		{
